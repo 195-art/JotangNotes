@@ -1,0 +1,89 @@
+name: jotangnote
+
+services:
+  app:
+    image: jotangnote:latest
+    build:
+      context: .
+    restart: unless-stopped
+    ports:
+      - "${APP_BIND_HOST:-127.0.0.1}:${PORT:-8080}:8080"
+    environment:
+      PORT: "8080"
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      DB_NAME: jotangnote
+      DB_USER: jotangnote
+      DB_PASSWORD: ${DB_PASSWORD:-jotangnote-dev-password}
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      REDIS_PASSWORD: ""
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: "5672"
+      RABBITMQ_USER: jotangnote
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-jotangnote-dev-password}
+      RABBITMQ_VHOST: /
+      JWT_SECRET: ${JWT_SECRET:-jotangnote-docker-development-secret-change-before-deploy}
+      JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75.0 -Dfile.encoding=UTF-8"
+      TZ: Asia/Shanghai
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: jotangnote
+      MYSQL_USER: jotangnote
+      MYSQL_PASSWORD: ${DB_PASSWORD:-jotangnote-dev-password}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-jotangnote-dev-root-password}
+      TZ: Asia/Shanghai
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'MYSQL_PWD="$$MYSQL_PASSWORD" mysql --protocol=TCP -h 127.0.0.1 -u "$$MYSQL_USER" --database="$$MYSQL_DATABASE" --execute="SELECT 1 FROM processed_note_messages LIMIT 1" > /dev/null'
+      interval: 5s
+      timeout: 5s
+      start_period: 60s
+      retries: 30
+
+  redis:
+    image: redis:7.4-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  rabbitmq:
+    image: rabbitmq:4.2-alpine
+    hostname: rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: jotangnote
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-jotangnote-dev-password}
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "check_running"]
+      interval: 10s
+      timeout: 10s
+      start_period: 30s
+      retries: 20
+
+volumes:
+  mysql-data:
+  redis-data:
+  rabbitmq-data:

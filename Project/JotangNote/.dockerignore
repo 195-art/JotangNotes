@@ -1,0 +1,7 @@
+# Only Maven sources are needed; exclude local files and old build outputs.
+*
+!pom.xml
+!src/
+!src/**
+src/main/resources/application-local.properties
+src/**/target/

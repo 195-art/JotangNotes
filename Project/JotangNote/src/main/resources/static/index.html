@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JotangNote 笔记</title>
+  <style>
+    :root{font-family:Inter,"Microsoft YaHei",sans-serif;color:#242b3b;background:#f4f6fb;font-synthesis:none}*{box-sizing:border-box}body{margin:0;min-height:100vh}button,input,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}.muted{color:#8b93a3}.small{font-size:12px}.primary{background:#596fe4;color:white;border:0;border-radius:9px;padding:10px 15px;font-weight:600}.primary:hover{background:#455ccc}.secondary{background:#f2f4f9;color:#4d566a;border:1px solid #e3e7ef;border-radius:9px;padding:9px 13px}.danger{color:#c84646;background:#fff1f1;border:1px solid #f4d8d8;border-radius:9px;padding:9px 13px}.field{width:100%;padding:11px 12px;border:1px solid #dfe3ec;border-radius:9px;background:white;outline:none}.field:focus{border-color:#8998ed;box-shadow:0 0 0 3px #596fe41a}label{display:block;font-size:13px;font-weight:600;margin:0 0 7px}.auth-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}.auth-card{width:min(420px,100%);background:white;border:1px solid #e7eaf0;border-radius:18px;padding:30px;box-shadow:0 18px 60px #23304a12}.brand{font-size:22px;font-weight:750;letter-spacing:-.4px}.brand span{color:#596fe4}.auth-card p{color:#7d8697;font-size:13px;line-height:1.6;margin:8px 0 24px}.auth-card .field{margin-bottom:15px}.auth-actions{display:flex;gap:8px;margin-top:6px}.auth-actions button{flex:1}.auth-switch{text-align:center;margin-top:18px;font-size:13px;color:#7d8697}.link-button{border:0;background:transparent;color:#5268d9;padding:4px;font-weight:600}.auth-error{margin-top:14px;color:#b44141;font-size:13px;line-height:1.5}.app{height:100vh;min-height:560px;display:grid;grid-template-columns:270px minmax(320px,1fr) 350px;background:white}.sidebar{border-right:1px solid #e9ecf2;display:flex;flex-direction:column;min-width:0}.side-head{height:70px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #edf0f4}.side-head .brand{font-size:18px}.user-row{padding:14px 16px;border-bottom:1px solid #edf0f4;display:flex;align-items:center;justify-content:space-between;gap:8px}.user-name{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis}.note-tools{padding:13px 14px 8px;display:flex;gap:7px}.note-tools .primary{flex:1}.note-list{overflow:auto;padding:4px 9px 14px;flex:1}.note-item{padding:11px 12px;border-radius:9px;cursor:pointer;margin-bottom:3px}.note-item:hover{background:#f5f6fa}.note-item.active{background:#edf0ff}.note-title{font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.note-meta{font-size:11px;color:#9299a8;margin-top:5px}.list-empty{color:#8b93a3;font-size:13px;line-height:1.6;padding:14px 12px}.editor{min-width:0;display:flex;flex-direction:column;background:#fff}.editor-head{height:70px;padding:0 24px;border-bottom:1px solid #edf0f4;display:flex;align-items:center;justify-content:space-between;gap:12px}.editor-head h2{font-size:16px;margin:0}.editor-actions{display:flex;gap:8px}.editor-body{padding:32px clamp(20px,5vw,64px);width:min(900px,100%);margin:0 auto;flex:1;display:flex;flex-direction:column;min-height:0}.title-input{border:0;outline:0;font-size:29px;font-weight:700;color:#252c3a;padding:6px 0 14px}.title-input::placeholder{color:#c1c6d0}.content-input{border:0;outline:0;resize:none;flex:1;min-height:200px;font-size:15px;line-height:1.9;color:#3c4352;padding:5px 0}.content-input::placeholder{color:#a6adba}.editor-foot{font-size:12px;color:#9299a8;padding-top:12px;border-top:1px solid #f0f1f5}.empty-editor{margin:auto;text-align:center;color:#8b93a3;line-height:1.8}.ai-panel{border-left:1px solid #e9ecf2;display:flex;flex-direction:column;min-width:0}.ai-head{height:70px;padding:0 17px;border-bottom:1px solid #edf0f4;display:flex;align-items:center;justify-content:space-between;gap:8px}.ai-heading{font-size:15px;font-weight:700}.ai-head-actions{display:flex;align-items:center;gap:6px}.ai-head .secondary{padding:7px 9px;font-size:12px}.chat-messages{flex:1;overflow:auto;padding:17px 14px;display:flex;flex-direction:column;gap:12px}.bubble{max-width:92%;padding:10px 12px;border-radius:13px;font-size:13px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}.bubble.user{align-self:flex-end;background:#596fe4;color:#fff;border-bottom-right-radius:4px}.bubble.assistant{align-self:flex-start;background:#f1f3f8;color:#343c4b;border-bottom-left-radius:4px}.bubble.system{align-self:center;color:#8b93a3;font-size:11px;text-align:center;padding:4px 8px}.chat-form{padding:12px;border-top:1px solid #edf0f4}.chat-form textarea{width:100%;height:75px;resize:vertical;padding:10px 11px;border:1px solid #dfe3ec;border-radius:10px;outline:none;font-size:13px}.chat-form textarea:focus{border-color:#8998ed}.chat-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px}.session{font-size:10px;color:#9aa1ae;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chat-bottom button{padding:8px 13px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2f3645;color:white;padding:11px 16px;border-radius:10px;font-size:13px;box-shadow:0 8px 30px #18203930;z-index:5;max-width:calc(100vw - 30px)}.mobile-tabs{display:none}
+    @media(max-width:1050px){.app{grid-template-columns:230px minmax(300px,1fr)}.ai-panel{position:fixed;z-index:4;right:0;top:0;bottom:0;width:min(390px,100vw);background:white;box-shadow:-18px 0 55px #1d294025;transform:translateX(105%);transition:transform .2s}.ai-panel.open{transform:translateX(0)}.mobile-tabs{display:flex;gap:6px}.mobile-tabs button{font-size:12px;padding:7px 9px}}
+    @media(max-width:650px){.app{display:flex;flex-direction:column;height:100dvh;min-height:0}.sidebar{height:42%;min-height:190px;border-right:0;border-bottom:1px solid #e9ecf2}.side-head{height:54px}.user-row{padding:9px 14px}.note-tools{padding:8px 12px 4px}.note-list{display:flex;overflow-x:auto;overflow-y:hidden;flex:none;gap:6px;padding:6px 10px 10px}.note-item{flex:0 0 160px;align-self:flex-start;margin:0;border:1px solid #edf0f4}.editor{flex:1;min-height:0}.editor-head{height:54px;padding:0 13px}.editor-body{padding:20px 18px}.title-input{font-size:24px}.editor-actions{gap:5px}.editor-actions button{padding:8px}.ai-panel{height:100dvh}.ai-panel.open{transform:translateX(0)}}
+  </style>
+</head>
+<body>
+  <section id="authView" class="auth-wrap">
+    <div class="auth-card">
+      <div class="brand">Jotang<span>Note</span></div>
+      <p id="authDescription">登录后管理你的笔记，也可以随时向 AI 助手提问。</p>
+      <form id="authForm">
+        <label for="username">用户名</label><input class="field" id="username" autocomplete="username" required maxlength="64" />
+        <label for="password">密码</label><input class="field" id="password" type="password" autocomplete="current-password" required />
+        <div class="auth-actions"><button class="primary" id="authSubmit" type="submit">登录</button></div>
+      </form>
+      <div class="auth-switch"><span id="authSwitchText">还没有账号？</span><button class="link-button" id="authSwitch" type="button">注册</button></div>
+      <div id="authError" class="auth-error"></div>
+    </div>
+  </section>
+
+  <main id="appView" class="app hidden">
+    <aside class="sidebar">
+      <div class="side-head"><div class="brand">Jotang<span>Note</span></div><div class="mobile-tabs"><button class="secondary" id="showAi">AI 助手</button></div></div>
+      <div class="user-row"><span id="userLabel" class="user-name"></span><button class="link-button small" id="logout" type="button">退出</button></div>
+      <div class="note-tools"><button class="primary" id="newNote" type="button">＋ 新建笔记</button><button class="secondary" id="refreshNotes" type="button" title="刷新列表">↻</button></div>
+      <div id="noteList" class="note-list"></div>
+    </aside>
+
+    <section class="editor">
+      <div class="editor-head"><h2 id="editorLabel">我的笔记</h2><div class="editor-actions"><button class="danger hidden" id="deleteNote" type="button">删除</button><button class="primary hidden" id="saveNote" type="button">保存笔记</button></div></div>
+      <div id="editorBody" class="editor-body"><div class="empty-editor">从左侧选择一篇笔记，或点击「新建笔记」开始记录。<br><span class="small">笔记会保存到你的账号中。</span></div></div>
+    </section>
+
+    <aside class="ai-panel" id="aiPanel">
+      <div class="ai-head"><div class="ai-heading">AI 助手</div><div class="ai-head-actions"><button class="secondary" id="newChat" type="button">新会话</button><button class="secondary mobile-tabs" id="hideAi" type="button">收起</button></div></div>
+      <section id="chatMessages" class="chat-messages" aria-live="polite"><div class="bubble system">你好！可以直接提问，也可以让 AI 查询笔记，例如“帮我查笔记 id=10”。</div></section>
+      <form id="chatForm" class="chat-form"><textarea id="chatInput" placeholder="输入问题，Enter 发送，Shift + Enter 换行"></textarea><div class="chat-bottom"><span id="sessionInfo" class="session">新会话</span><button class="primary" id="chatSend" type="submit">发送</button></div></form>
+    </aside>
+  </main>
+  <div id="toast" class="toast hidden" role="status"></div>
+
+  <script>
+    const API = window.location.origin;
+    const TOKEN_KEY = "jotangnote_token";
+    const USER_KEY = "jotangnote_username";
+    const SESSION_KEY = "jotangnote_chat_session_id";
+    const $ = (id) => document.getElementById(id);
+    let token = localStorage.getItem(TOKEN_KEY);
+    let username = localStorage.getItem(USER_KEY) || "";
+    let authMode = "login";
+    let notes = [];
+    let selectedId = null;
+    let busy = false;
+    let sessionId = localStorage.getItem(SESSION_KEY);
+    let toastTimer;
+    let authEpoch = 0;
+    let chatEpoch = 0;
+    const pendingRequests = new Set();
+    const cancelled = error => error.name === "AbortError";
+    function ensureAccount(epoch) {
+      if (epoch !== authEpoch) throw new DOMException("账号已切换", "AbortError");
+    }
+
+    async function request(path, options = {}) {
+      const epoch = authEpoch;
+      const authenticated = options.auth !== false;
+      const controller = new AbortController();
+      pendingRequests.add(controller);
+      try {
+      const headers = { ...(options.headers || {}) };
+      if (options.body !== undefined) headers["Content-Type"] = "application/json";
+      if (token && options.auth !== false) headers.Authorization = `Bearer ${token}`;
+      const response = await fetch(`${API}${path}`, { ...options, headers, signal: controller.signal });
+      let result;
+      try { result = await response.json(); }
+      catch { throw new Error(`服务器返回无法读取的响应（HTTP ${response.status}）。`); }
+      ensureAccount(epoch);
+      if (authenticated && (response.status === 401 || result.code === 401)) {
+        logout();
+        showToast("登录已失效，请重新登录。");
+        throw new DOMException("登录已失效", "AbortError");
+      }
+      if (!response.ok || result.code !== 200) throw new Error(result.message || `请求失败（HTTP ${response.status}）`);
+      return result.data;
+      } catch (error) { ensureAccount(epoch); throw error; }
+      finally { pendingRequests.delete(controller); }
+    }
+
+    function showToast(message, duration = 3000) {
+      const el = $("toast"); el.textContent = message; el.classList.remove("hidden");
+      clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.add("hidden"), duration);
+    }
+
+    function authErrorText(error) {
+      if (error instanceof TypeError) return "无法连接后端或请求被浏览器拦截。请确认后端已启动，并允许当前页面来源的 CORS 请求。";
+      return error.message;
+    }
+
+    function renderAuth() {
+      $("authView").classList.remove("hidden"); $("appView").classList.add("hidden");
+      const registering = authMode === "register";
+      $("authSubmit").textContent = registering ? "创建账号" : "登录";
+      $("authSwitchText").textContent = registering ? "已经有账号？" : "还没有账号？";
+      $("authSwitch").textContent = registering ? "返回登录" : "注册";
+      $("authDescription").textContent = registering ? "创建账号后即可保存和管理自己的笔记。" : "登录后管理你的笔记，也可以随时向 AI 助手提问。";
+      $("password").autocomplete = registering ? "new-password" : "current-password";
+      $("authError").textContent = "";
+    }
+
+    function showApp() {
+      $("authView").classList.add("hidden"); $("appView").classList.remove("hidden");
+      $("userLabel").textContent = username || "已登录";
+      updateSessionInfo(); loadNotes();
+    }
+
+    $("authSwitch").addEventListener("click", () => { authMode = authMode === "login" ? "register" : "login"; renderAuth(); });
+    $("authForm").addEventListener("submit", async (event) => {
+      event.preventDefault(); $("authSubmit").disabled = true; $("authError").textContent = "正在处理…";
+      const name = $("username").value.trim(); const password = $("password").value;
+      try {
+        const path = authMode === "register" ? "/users/register" : "/users/login";
+        const data = await request(path, { method: "POST", auth: false, body: JSON.stringify({ username: name, password }) });
+        token = typeof data === "string" ? data : data?.token;
+        if (!token) throw new Error("登录接口没有返回 token，请检查后端响应格式。");
+        username = name; localStorage.setItem(TOKEN_KEY, token); localStorage.setItem(USER_KEY, username);
+        $("password").value = ""; showApp();
+      } catch (error) { if (!cancelled(error)) $("authError").textContent = authErrorText(error); }
+      finally { $("authSubmit").disabled = false; }
+    });
+
+    function logout() {
+      authEpoch++; chatEpoch++;
+      pendingRequests.forEach(controller => controller.abort()); pendingRequests.clear();
+      token = null; username = ""; notes = []; selectedId = null;
+      localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(USER_KEY);
+      sessionId = null; localStorage.removeItem(SESSION_KEY);
+      busy = false; $("chatSend").disabled = false; $("chatSend").textContent = "发送";
+      $("saveNote").disabled = false; $("saveNote").textContent = "保存笔记";
+      $("deleteNote").disabled = false; $("deleteNote").textContent = "删除";
+      $("chatMessages").replaceChildren(); $("chatInput").value = "";
+      $("userLabel").textContent = ""; $("password").value = "";
+      $("aiPanel").classList.remove("open");
+      renderEditor(null); updateSessionInfo();
+      authMode = "login"; renderAuth();
+    }
+    $("logout").addEventListener("click", logout);
+
+    async function loadNotes({ quiet = false } = {}) {
+      if (!token) return;
+      $("noteList").innerHTML = '<div class="list-empty">正在读取笔记…</div>';
+      try {
+        const data = await request("/notes/my");
+        if (!Array.isArray(data)) throw new Error("GET /notes/my 应返回笔记数组。");
+        notes = data; renderNotes();
+        if (!quiet && notes.length === 0) showToast("还没有笔记，点击「新建笔记」创建第一篇。", 3500);
+      } catch (error) {
+        if (cancelled(error)) return;
+        $("noteList").innerHTML = `<div class="list-empty">读取笔记失败：${escapeHtml(error.message)}<br><br>确认后端已有 GET /notes/my 接口。</div>`;
+      }
+    }
+
+    function escapeHtml(value) { return String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch])); }
+
+    function renderNotes() {
+      const list = $("noteList"); list.replaceChildren();
+      if (!notes.length) { list.innerHTML = '<div class="list-empty">还没有笔记。<br>点击「新建笔记」开始记录。</div>'; return; }
+      notes.forEach(note => {
+        const item = document.createElement("div"); item.className = `note-item${String(note.id) === String(selectedId) ? " active" : ""}`;
+        const title = document.createElement("div"); title.className = "note-title"; title.textContent = note.title || "无标题";
+        const meta = document.createElement("div"); meta.className = "note-meta"; meta.textContent = `#${note.id} · ${formatDate(note.updatedAt || note.createdAt)}`;
+        item.append(title, meta); item.addEventListener("click", () => openNote(note.id)); list.append(item);
+      });
+    }
+
+    function formatDate(value) {
+      if (!value) return "";
+      const date = new Date(value); return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleString("zh-CN", { month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+    }
+
+    function renderEditor(note = null) {
+      const body = $("editorBody"); body.replaceChildren();
+      if (!note) {
+        selectedId = null; $("editorLabel").textContent = "我的笔记";
+        $("saveNote").classList.add("hidden"); $("deleteNote").classList.add("hidden");
+        const empty = document.createElement("div"); empty.className = "empty-editor"; empty.innerHTML = "从左侧选择一篇笔记，或点击「新建笔记」开始记录。<br><span class=\"small\">笔记会保存到你的账号中。</span>"; body.append(empty); renderNotes(); return;
+      }
+      selectedId = note.id ?? null; $("editorLabel").textContent = selectedId == null ? "新建笔记" : `编辑笔记 · #${selectedId}`;
+      $("saveNote").classList.remove("hidden"); $("deleteNote").classList.toggle("hidden", selectedId == null);
+      const title = document.createElement("input"); title.id = "noteTitle"; title.className = "title-input"; title.maxLength = 255; title.placeholder = "无标题"; title.value = note.title || "";
+      const content = document.createElement("textarea"); content.id = "noteContent"; content.className = "content-input"; content.placeholder = "开始写点什么…"; content.value = note.content || "";
+      const foot = document.createElement("div"); foot.className = "editor-foot"; foot.textContent = selectedId == null ? "新建笔记" : `笔记 ID：${selectedId} · 更新于 ${formatDate(note.updatedAt)}`;
+      body.append(title, content, foot); renderNotes(); title.focus();
+    }
+
+    async function openNote(id) {
+      try { const note = await request(`/notes/${encodeURIComponent(id)}`); if (!note) throw new Error("笔记不存在。"); renderEditor(note); }
+      catch (error) { if (!cancelled(error)) showToast(`打开笔记失败：${error.message}`, 4500); }
+    }
+    $("newNote").addEventListener("click", () => renderEditor({ title: "", content: "" }));
+    $("refreshNotes").addEventListener("click", () => loadNotes({ quiet: true }));
+
+    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+    async function waitUntil(check, timeout = 12000) {
+      const epoch = authEpoch;
+      const until = Date.now() + timeout;
+      while (Date.now() < until) {
+        await wait(600); ensureAccount(epoch); const current = await request("/notes/my");
+        if (Array.isArray(current) && check(current)) { notes = current; return true; }
+      }
+      ensureAccount(epoch); notes = await request("/notes/my"); return false;
+    }
+
+    $("saveNote").addEventListener("click", async () => {
+      const epoch = authEpoch;
+      const title = $("noteTitle")?.value.trim() || ""; const content = $("noteContent")?.value.trim() || "";
+      if (!title || !content) { showToast("标题和正文都不能为空。"); return; }
+      const button = $("saveNote"); button.disabled = true; button.textContent = "保存中…";
+      try {
+        if (selectedId == null) {
+          const beforeIds = new Set(notes.map(note => String(note.id)));
+          await request("/notes", { method: "POST", body: JSON.stringify({ title, content }) });
+          const appeared = await waitUntil(list => list.some(note => !beforeIds.has(String(note.id)) && note.title === title && note.content === content));
+          renderNotes();
+          const created = notes.find(note => !beforeIds.has(String(note.id)) && note.title === title && note.content === content);
+          if (created) { await openNote(created.id); ensureAccount(epoch); showToast("笔记已保存。"); }
+          else { renderEditor({ title, content }); showToast(appeared ? "笔记已保存。" : "请求已受理，笔记可能仍在处理中；请稍后刷新列表。", 5000); }
+        } else {
+          const id = selectedId;
+          await request(`/notes/${encodeURIComponent(id)}`, { method: "PUT", body: JSON.stringify({ title, content }) });
+          const saved = await waitUntil(list => list.some(note => String(note.id) === String(id) && note.title === title && note.content === content));
+          renderNotes(); await openNote(id); ensureAccount(epoch); showToast(saved ? "修改已保存。" : "修改请求已受理；若内容未更新，请稍后刷新。", 4500);
+        }
+      } catch (error) { if (!cancelled(error)) showToast(`保存失败：${authErrorText(error)}`, 5000); }
+      finally { if (epoch === authEpoch) { button.disabled = false; button.textContent = "保存笔记"; } }
+    });
+
+    $("deleteNote").addEventListener("click", async () => {
+      const epoch = authEpoch;
+      if (selectedId == null) return;
+      const id = selectedId;
+      if (!confirm("确定删除这篇笔记吗？此操作无法撤销。")) return;
+      const button = $("deleteNote"); button.disabled = true; button.textContent = "删除中…";
+      try {
+        await request(`/notes/${encodeURIComponent(id)}`, { method: "DELETE" });
+        const removed = await waitUntil(list => !list.some(note => String(note.id) === String(id)));
+        renderNotes(); renderEditor(null); showToast(removed ? "笔记已删除。" : "删除请求已受理；如果列表未更新，请稍后刷新。", 4500);
+      } catch (error) { if (!cancelled(error)) showToast(`删除失败：${authErrorText(error)}`, 5000); }
+      finally { if (epoch === authEpoch) { button.disabled = false; button.textContent = "删除"; } }
+    });
+
+    function addBubble(text, role) {
+      const bubble = document.createElement("div"); bubble.className = `bubble ${role}`; bubble.textContent = text;
+      $("chatMessages").append(bubble); $("chatMessages").scrollTop = $("chatMessages").scrollHeight; return bubble;
+    }
+    function updateSessionInfo() { $("sessionInfo").textContent = sessionId ? `会话：${sessionId}` : "新会话"; }
+    $("newChat").addEventListener("click", () => {
+      chatEpoch++; busy = false; $("chatSend").disabled = false; $("chatSend").textContent = "发送";
+      sessionId = null; localStorage.removeItem(SESSION_KEY); $("chatMessages").replaceChildren();
+      addBubble("已开始新会话。", "system"); updateSessionInfo(); $("chatInput").focus();
+    });
+    $("chatForm").addEventListener("submit", async event => {
+      event.preventDefault(); const message = $("chatInput").value.trim(); if (!message || busy) return;
+      const epoch = chatEpoch;
+      addBubble(message, "user"); $("chatInput").value = ""; busy = true;
+      const send = $("chatSend"); send.disabled = true; send.textContent = "思考中…"; const pending = addBubble("AI 思考中…", "system");
+      try {
+        const body = { message }; if (sessionId) body.sessionId = sessionId;
+        const data = await request("/chat", { method: "POST", body: JSON.stringify(body) });
+        if (epoch !== chatEpoch) return;
+        if (!data || typeof data.reply !== "string") throw new Error("服务器没有返回 AI 回复。");
+        sessionId = data.sessionId || sessionId; if (sessionId) localStorage.setItem(SESSION_KEY, sessionId);
+        pending.remove(); addBubble(data.reply, "assistant"); updateSessionInfo();
+      } catch (error) { pending.remove(); if (!cancelled(error) && epoch === chatEpoch) addBubble(`发送失败：${authErrorText(error)}`, "system"); }
+      finally { if (epoch === chatEpoch) { busy = false; send.disabled = false; send.textContent = "发送"; $("chatInput").focus(); } }
+    });
+    $("chatInput").addEventListener("keydown", event => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); $("chatForm").requestSubmit(); } });
+    $("showAi").addEventListener("click", () => $("aiPanel").classList.add("open"));
+    $("hideAi").addEventListener("click", () => $("aiPanel").classList.remove("open"));
+
+    updateSessionInfo();
+    if (token) showApp(); else renderAuth();
+  </script>
+</body>
+</html>
