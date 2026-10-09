@@ -2,6 +2,8 @@
 
 Spring Boot 4 + MySQL + Redis + RabbitMQ 笔记应用，包含 JWT 登录、私人笔记管理和 AI 工具调用。前端在后端静态资源中，启动后访问应用地址即可。
 
+本项目位于仓库的 `Project/JotangNote` 子目录。以下命令均在该项目目录执行；Windows PowerShell 中先运行 `cd "D:\IdeaProjects\JotangNotes\Project\JotangNote"`，Maven Wrapper 使用 `.\mvnw.cmd` 调用。外层 `JotangNotes` 目录用于统一管理 Git 和笔记文件。
+
 ## 环境要求
 
 - JDK 17+、Maven 3.9+（也可使用仓库内的 Maven Wrapper）
@@ -10,7 +12,7 @@ Spring Boot 4 + MySQL + Redis + RabbitMQ 笔记应用，包含 JWT 登录、私�
 
 ## 首次运行
 
-1. 在 MySQL 中执行仓库根目录的 `schema.sql`，创建 `jotangnote` 库、用户表、笔记表和消息处理记录表。
+1. 在 MySQL 中执行项目目录的 `schema.sql`，创建 `jotangnote` 库、用户表、笔记表和消息处理记录表。
 2. 启动 MySQL、Redis 和 RabbitMQ，按下表配置环境变量。默认配置适用于本地开发；部署到其他机器时填写实际服务地址和账号。
 3. Windows 执行 `mvnw.cmd spring-boot:run`，Linux/macOS 执行 `./mvnw spring-boot:run`。
 4. 浏览器访问 `http://localhost:8080`；其他机器访问 `http://应用服务器地址:端口`。
